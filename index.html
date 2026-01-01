@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>proof of concept</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="controls">
+    <button class="sound-btn" id="whiteBtn" data-label="White Noise">
+      <img src="white-noise.png" alt="White noise icon">
+      <span class="label">White Noise</span>
+      <audio id="whiteAudio" src="white_noise.mp3" loop preload="none"></audio>
+    </button>
+
+    <button class="sound-btn" id="rainBtn" data-label="Rain">
+      <img src="rain.png" alt="Rain icon">
+      <span class="label">Rain</span>
+      <audio id="rainAudio" src="rain.mp3" loop preload="none"></audio>
+    </button>
+
+    <button class="sound-btn" id="birdsBtn" data-label="Birds">
+      <img src="bird.png" alt="Birds icon">
+      <span class="label">Birds</span>
+      <audio id="birdsAudio" src="birds.mp3" loop preload="none"></audio>
+    </button>
+
+    <button class="sound-btn" id="catBtn" data-label="Cat">
+      <img src="cat.png" alt="Cat purring icon">
+      <span class="label">Cat</span>
+      <audio id="catAudio" src="cat.mp3" loop preload="none"></audio>
+    </button>
+
+    <button class="sound-btn" id="violinBtn" data-label="Violin">
+      <img src="violin.png" alt="Violin icon">
+      <span class="label">Violin</span>
+      <audio id="violinAudio" src="violin.mp3" loop preload="none"></audio>
+    </button>
+
+    <button class="sound-btn" id="fireBtn" data-label="Fire">
+      <img src="fire.png" alt="Fire icon">
+      <span class="label">Fire</span>
+      <audio id="fireAudio" src="fire.mp3" loop preload="none"></audio>
+    </button>
+
+    <button class="sound-btn" id="dogBtn" data-label="Dog">
+      <img src="dog.png" alt="Dog icon">
+      <span class="label">Dog</span>
+      <audio id="dogAudio" src="dog.mp3" loop preload="none"></audio>
+    </button>
+  </div>
+
+  <!-- Settings button -->
+  <button id="settingsBtn" class="settings-btn" aria-label="Settings">
+    <img src="settings.jpg" alt="Settings">
+  </button>
+
+  <!-- Settings modal -->
+  <div id="settingsModal" class="modal" aria-hidden="true">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <h2 id="settingsTitle">Display</h2>
+
+      <form id="displayForm" class="display-form">
+        <label>
+          <input type="radio" name="mode" value="both">
+          Icons and text
+        </label>
+
+        <label>
+          <input type="radio" name="mode" value="icons">
+          Icons only
+        </label>
+
+        <label>
+          <input type="radio" name="mode" value="text">
+          Text only
+        </label>
+      </form>
+
+      <div class="modal-actions">
+        <button id="closeModal" class="btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
