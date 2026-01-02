@@ -1,8 +1,5 @@
-/* app.js — wire up the sounds and the settings modal */
-
 document.addEventListener('DOMContentLoaded', () => {
-  // --- settings / display mode ---
-  const SETTINGS_KEY = 'sound-ui-mode'; // values: 'both' | 'icons' | 'text'
+  const SETTINGS_KEY = 'sound-ui-mode';
   const defaultMode = 'both';
 
   const settingsBtn = document.getElementById('settingsBtn');
@@ -23,14 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (mode === 'text') document.body.classList.add('mode-text');
     else document.body.classList.add('mode-both');
 
-    // update radio checked state
     const r = displayForm.elements['mode'];
     for (const el of r) {
       el.checked = (el.value === mode);
     }
   }
 
-  // open settings
   settingsBtn.addEventListener('click', () => {
     modal.setAttribute('aria-hidden', 'false');
   });
@@ -38,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.setAttribute('aria-hidden', 'true');
   });
   modal.addEventListener('click', (e) => {
-    // click outside panel closes
     if (e.target === modal) modal.setAttribute('aria-hidden', 'true');
   });
 
@@ -47,10 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setMode(v);
   });
 
-  // load stored mode
   applyMode(getMode());
 
-  // --- sound button setup (refactored from your code) ---
   function setupSound(buttonId, audioId) {
     const button = document.getElementById(buttonId);
     const img = button.querySelector('img');
@@ -61,13 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let unlocked = false;
     let fadeInterval = null;
 
-    // states: volume must be in [0,1]
     const states = [
       { volume: 0.0, scale: 0.5, brightness: 1.0, color: "#013647" },
       { volume: 0.2, scale: 0.65, brightness: 1.0, color: "#1e657d" },
       { volume: 0.5, scale: 0.85, brightness: 1.0, color: "#3b87a1" },
       { volume: 0.9, scale: 1.15, brightness: 1.0, color: "#6fb9d1" },
-      { volume: 1.0, scale: 1.45, brightness: 1.0, color: "#9fdff5" } // capped at 1.0
+      { volume: 1.0, scale: 1.45, brightness: 1.0, color: "#9fdff5" }
     ];
 
     function fadeTo(target, duration = 300) {
@@ -84,9 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
           audio.volume = capped;
           clearInterval(fadeInterval);
           fadeInterval = null;
-          // pause when volume reaches 0 to save CPU
           if (Math.abs(capped) < 0.001) {
-            try { audio.pause(); } catch (err) {}
+            audio.pause();
           }
         }
       }, stepTime);
@@ -96,30 +86,25 @@ document.addEventListener('DOMContentLoaded', () => {
       state = (state + 1) % states.length;
       const s = states[state];
 
-      // visual
       button.style.backgroundColor = s.color;
       img.style.transform = `scale(${s.scale})`;
       img.style.filter = `brightness(${s.brightness})`;
 
-      // audio unlock + play
       try {
         if (!unlocked) {
           audio.volume = 0.0;
-          await audio.play(); // user interaction allows playback
+          await audio.play();
           unlocked = true;
         } else {
-          // ensure playing if fade in from zero (some browsers pause when volume 0)
           if (audio.paused && s.volume > 0) audio.play().catch(()=>{});
         }
       } catch (err) {
-        // play could fail on some phones/browsers; ignore silently
         unlocked = true;
       }
 
       fadeTo(s.volume, 300);
     });
 
-    // ensure starting visuals correspond to state 0
     const s0 = states[0];
     button.style.backgroundColor = s0.color;
     img.style.transform = `scale(${s0.scale})`;
@@ -128,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
     try { audio.pause(); } catch {}
   }
 
-  // list of id pairs to initialise
   const pairs = [
     ["whiteBtn", "whiteAudio"],
     ["rainBtn", "rainAudio"],
@@ -140,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
   for (const [b, a] of pairs) setupSound(b, a);
 
-  // Accessibility: close modal with Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') modal.setAttribute('aria-hidden', 'true');
   });

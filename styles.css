@@ -6,7 +6,7 @@
   --label-font: 16px;
 }
 
-/* page */
+
 * { box-sizing: border-box; }
 html,body {
   height: 100%;
@@ -16,7 +16,7 @@ html,body {
   color: #fff;
 }
 
-/* layout */
+
 .controls {
   display: flex;
   gap: var(--gap);
@@ -27,7 +27,7 @@ html,body {
   padding: 40px;
 }
 
-/* sound button */
+
 .sound-btn {
   width: var(--btn-size);
   height: var(--btn-size);
@@ -71,11 +71,9 @@ html,body {
   word-break: break-word;
 }
 
-/* modes - toggle classes on body */
-/* Default smaller label in icon-only mode (label hidden) */
 body.mode-icons .label { opacity: 0; transform: translateY(6px); pointer-events: none; }
 
-/* BOTH: text + image — make label bigger & bolder */
+
 body.mode-both .label {
   opacity: 1;
   transform: translateY(0);
@@ -83,13 +81,12 @@ body.mode-both .label {
   font-weight: 600;
 }
 
-/* ICONS only — make image larger */
+
 body.mode-icons img {
   opacity: 1;
   transform: scale(0.95);
 }
 
-/* TEXT only — hide icon and make the label fill the box */
 body.mode-text img {
   opacity: 0;
   transform: scale(0.3);
@@ -97,7 +94,6 @@ body.mode-text img {
 }
 
 body.mode-text .label {
-  /* large, centered, occupying the button */
   position: absolute;
   left: 12px;
   right: 12px;
@@ -133,7 +129,6 @@ body.mode-text .label {
 .settings-btn img { width: 34px; height: 34px; object-fit: contain; pointer-events: none; filter: invert(1); }
 .settings-btn:active { transform: scale(.95); }
 
-/* modal */
 .modal {
   position: fixed;
   inset: 0;
@@ -185,11 +180,9 @@ body.mode-text .label {
 }
 .btn:active { transform: translateY(1px); }
 
-/* small screens */
 @media (max-width: 900px) {
   :root { --btn-size: 240px; }
   .controls { padding: 20px; gap: 18px; }
   .sound-btn img { width: 140px; height: 140px; }
-  /* adjust text-only sizing on smaller devices */
   body.mode-text .label { font-size: clamp(20px, 6.5vw, 40px); left: 8px; right: 8px; }
 }
